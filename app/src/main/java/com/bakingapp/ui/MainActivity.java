@@ -1,9 +1,12 @@
-package com.bakingapp;
+package com.bakingapp.ui;
 
 import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.bakingapp.R;
+import com.bakingapp.RecipeListFragment;
 
 public class MainActivity extends AppCompatActivity implements RecipeListFragment.OnFragmentInteractionListener {
 
