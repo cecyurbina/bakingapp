@@ -1,10 +1,15 @@
-package com.bakingapp;
+package com.bakingapp.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.bakingapp.R;
+import com.bakingapp.data.model.Recipe;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,9 +19,9 @@ import butterknife.ButterKnife;
  */
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-    private String[] mDataset;
+    private List<Recipe> mDataset;
 
-    public RecipeAdapter(String[] myDataSet){
+    public RecipeAdapter(List<Recipe> myDataSet){
         mDataset = myDataSet;
     }
 
@@ -28,12 +33,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvTest.setText(mDataset[position]);
+        holder.tvTest.setText(mDataset.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
