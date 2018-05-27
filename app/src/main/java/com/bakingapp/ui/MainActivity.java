@@ -2,6 +2,7 @@ package com.bakingapp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -37,9 +38,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
         presenter.onCreate();
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        if (getResources().getBoolean(R.bool.isTablet)){
+            layoutManager = new GridLayoutManager(this, 3);
+        } else {
+            layoutManager = new LinearLayoutManager(this);
+
+        }
         recyclerView.setLayoutManager(layoutManager);
-        /*String[] test = new String[10];
+
+               /*String[] test = new String[10];
         test[0] = "cero";
         test[1] = "uno";
         test[2] = "dos";

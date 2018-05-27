@@ -1,5 +1,6 @@
 package com.bakingapp.ui.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.bakingapp.R;
 import com.bakingapp.data.model.Recipe;
+import com.bakingapp.ui.RecipeActivity;
 
 import java.util.List;
 
@@ -41,13 +43,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return mDataset.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.tv_test)
         TextView tvTest;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), RecipeActivity.class);
+            view.getContext().startActivity(intent);
         }
     }
 }
