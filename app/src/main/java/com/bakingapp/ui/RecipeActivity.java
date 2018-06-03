@@ -28,14 +28,14 @@ public class RecipeActivity extends AppCompatActivity
         setContentView(R.layout.activity_recipe);
         mTwoPane = getResources().getBoolean(R.bool.isTablet);
 
-        if (mTwoPane) {
+        /*if (mTwoPane) {
 
             if (savedInstanceState == null) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 RecipeStepFragment stepFragment = new RecipeStepFragment();
                 fragmentManager.beginTransaction().add(R.id.fl_step_container, stepFragment).commit();
             }
-        }
+        }*/
     }
 
     @Override
@@ -60,11 +60,11 @@ public class RecipeActivity extends AppCompatActivity
     }
 
     @Override
-    public void showStepDetail() {
+    public void showStepDetail(int position) {
         if (mTwoPane) {
             //if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(recipeJson);
+            RecipeStepFragment recipeStepFragment = RecipeStepFragment.newInstance(recipeJson, position);
             fragmentManager.beginTransaction().replace(R.id.fl_step_container, recipeStepFragment).commit();
             //}
         }

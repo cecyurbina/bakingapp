@@ -168,7 +168,7 @@ public class RecipeFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
         Recipe getRecipe();
         void showIngredients();
-        void showStepDetail();
+        void showStepDetail(int position);
     }
 
     @OnClick(R.id.tv_title_ingredients)

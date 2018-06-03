@@ -63,7 +63,7 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecipeStepAdapter.Vi
         @Override
         public void onClick(View view) {
             step = mDataset.get(getAdapterPosition());
-            mListener.showStepDetail();
+            mListener.showStepDetail(getAdapterPosition());
             /*Gson gson = new Gson();
             String recipeJson = gson.toJson(recipe);
             Intent intent = new Intent(view.getView(), RecipeActivity.class);
