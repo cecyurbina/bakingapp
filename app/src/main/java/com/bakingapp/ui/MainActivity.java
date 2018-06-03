@@ -1,5 +1,6 @@
 package com.bakingapp.ui;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,37 +34,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         presenter = new MainPresenterImpl(this);
         presenter.onCreate();
-
         recyclerView.setHasFixedSize(true);
         if (getResources().getBoolean(R.bool.isTablet)){
             layoutManager = new GridLayoutManager(this, 3);
         } else {
             layoutManager = new LinearLayoutManager(this);
-
         }
         recyclerView.setLayoutManager(layoutManager);
-
-               /*String[] test = new String[10];
-        test[0] = "cero";
-        test[1] = "uno";
-        test[2] = "dos";
-        test[3] = "tres";
-        test[4] = "cuatro";
-        test[5] = "cinco";
-        test[6] = "seis";
-        test[7] = "siete";
-        test[8] = "ocho";
-        test[9] = "nueve";*/
-        recipeAdapter = new RecipeAdapter(recipeList);
+        recipeAdapter = new RecipeAdapter(recipeList, this);
         recyclerView.setAdapter(recipeAdapter);
         presenter.getRecipes();
-        /*RecipeListFragment recipeListFragment = new RecipeListFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fl_container, recipeListFragment);
-        fragmentTransaction.commit();*/
     }
 
     @Override
@@ -82,4 +64,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void recipesError(String error) {
 
     }
+
+    @Override
+    public Context getView() {
+        return this.getApplicationContext();
+    }
+
+
 }

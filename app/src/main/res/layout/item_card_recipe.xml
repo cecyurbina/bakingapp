@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
@@ -10,10 +11,11 @@
     card_view:contentPadding="20dp">
 
     <TextView
-        android:id="@+id/tv_test"
+        android:id="@+id/tv_ingredient"
         style="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/colorPink2"
+        tools:text="Recipe example" />
+
 </android.support.v7.widget.CardView>

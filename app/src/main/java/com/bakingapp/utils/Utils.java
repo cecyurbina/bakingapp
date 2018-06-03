@@ -8,4 +8,5 @@ import com.bakingapp.BuildConfig;
 
 public class Utils {
     public static final String BASE_URL = "https://google.com";
+
 }

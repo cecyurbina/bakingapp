@@ -1,6 +1,5 @@
 package com.bakingapp.ui.adapter;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,41 +7,36 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bakingapp.R;
-import com.bakingapp.data.model.Recipe;
-import com.bakingapp.ui.RecipeActivity;
-import com.bakingapp.ui.view.MainView;
-import com.google.gson.Gson;
+import com.bakingapp.data.model.Ingredient;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.bakingapp.ui.RecipeActivity.KEY_RECIPE;
-
 /**
  * Created by s.urbina.coronado on 5/3/2018.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-    private static List<Recipe> mDataset;
-    private MainView view;
+public class RecipeIngredientAdapter extends RecyclerView.Adapter<RecipeIngredientAdapter.ViewHolder> {
+    private static List<Ingredient> mDataset;
 
-    public RecipeAdapter(List<Recipe> myDataSet, MainView mainView){
+    public RecipeIngredientAdapter(List<Ingredient> myDataSet){
         mDataset = myDataSet;
-        view = mainView;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_recipe, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ingredient, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tvTest.setText(mDataset.get(position).getName());
-
+        Ingredient ingredient = mDataset.get(position);
+        holder.tvIngredient.setText(ingredient.getIngredient());
+        holder.tvQuantity.setText(String.valueOf(ingredient.getQuantity()));
+        holder.tvMeasure.setText(String.valueOf(ingredient.getMeasure()));
     }
 
     @Override
@@ -52,7 +46,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.tv_ingredient)
-        TextView tvTest;
+        TextView tvIngredient;
+        @BindView(R.id.tv_quantity)
+        TextView tvQuantity;
+        @BindView(R.id.tv_measure)
+        TextView tvMeasure;
+        Ingredient ingredient;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -62,12 +61,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            Recipe recipe = mDataset.get(getAdapterPosition());
-            Gson gson = new Gson();
+            ingredient = mDataset.get(getAdapterPosition());
+
+            /*Gson gson = new Gson();
             String recipeJson = gson.toJson(recipe);
-            Intent intent = new Intent(view.getContext(), RecipeActivity.class);
+            Intent intent = new Intent(view.getView(), RecipeActivity.class);
             intent.putExtra(KEY_RECIPE, recipeJson);
-            view.getContext().startActivity(intent);
+            view.getView().startActivity(intent);*/
         }
     }
 }

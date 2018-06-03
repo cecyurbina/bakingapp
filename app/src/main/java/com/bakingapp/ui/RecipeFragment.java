@@ -4,11 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bakingapp.R;
+import com.bakingapp.data.model.Recipe;
+import com.bakingapp.ui.adapter.RecipeAdapter;
+import com.bakingapp.ui.adapter.RecipeIngredientAdapter;
+import com.bakingapp.ui.adapter.RecipeStepAdapter;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+import static android.support.v7.widget.DividerItemDecoration.HORIZONTAL;
+import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 
 /**
@@ -30,6 +46,19 @@ public class RecipeFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Recipe mRecipe;
+    private Unbinder unbinder;
+    //@BindView(R.id.rv_ingredients)
+    //RecyclerView recyclerViewIngredients;
+    @BindView(R.id.rv_steps)
+    RecyclerView recyclerViewSteps;
+    @BindView(R.id.tv_title_ingredients)
+    TextView textViewTitle;
+    //private RecipeIngredientAdapter recipeIngredientAdapter;
+    private RecipeStepAdapter recipeStepAdapter;
+    //private RecyclerView.LayoutManager layoutManagerIngredient;
+    private RecyclerView.LayoutManager layoutManagerStep;
+
 
     public RecipeFragment() {
         // Required empty public constructor
@@ -66,7 +95,33 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe, container, false);
+        View view =  inflater.inflate(R.layout.fragment_recipe, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        mRecipe = mListener.getRecipe();
+
+        //layoutManagerIngredient = new LinearLayoutManager(getContext());
+        layoutManagerStep = new LinearLayoutManager(getContext());
+        layoutManagerStep.setAutoMeasureEnabled(true);
+        //layoutManagerIngredient.setAutoMeasureEnabled(true);
+
+        //recyclerViewIngredients.setLayoutManager(layoutManagerIngredient);
+        recyclerViewSteps.setLayoutManager(layoutManagerStep);
+
+        recyclerViewSteps.setHasFixedSize(true);
+        DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), VERTICAL);
+        recyclerViewSteps.addItemDecoration(itemDecor);
+        //recyclerViewIngredients.setHasFixedSize(true);
+        //recyclerViewIngredients.setNestedScrollingEnabled(false);
+        recyclerViewSteps.setNestedScrollingEnabled(false);
+
+
+        //recipeIngredientAdapter = new RecipeIngredientAdapter(mRecipe.getIngredients());
+        //recyclerViewIngredients.setAdapter(recipeIngredientAdapter);
+
+        recipeStepAdapter = new RecipeStepAdapter(mRecipe.getSteps(), mListener);
+        recyclerViewSteps.setAdapter(recipeStepAdapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -83,7 +138,7 @@ public class RecipeFragment extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnFragmentIngredientsInteractionListener");
         }
     }
 
@@ -91,6 +146,11 @@ public class RecipeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     /**
@@ -106,5 +166,14 @@ public class RecipeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        Recipe getRecipe();
+        void showIngredients();
+        void showStepDetail();
+    }
+
+    @OnClick(R.id.tv_title_ingredients)
+    public void onClickIngredients(){
+        // do your things
+        mListener.showIngredients();
     }
 }
