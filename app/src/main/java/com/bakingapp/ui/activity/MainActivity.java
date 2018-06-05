@@ -1,4 +1,4 @@
-package com.bakingapp.ui;
+package com.bakingapp.ui.activity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;

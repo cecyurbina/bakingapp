@@ -1,4 +1,4 @@
-package com.bakingapp.ui;
+package com.bakingapp.ui.fragment;
 
 import android.content.Context;
 import android.net.Uri;

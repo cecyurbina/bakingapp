@@ -1,7 +1,5 @@
 package com.bakingapp.ui.adapter;
 
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,7 @@ import android.widget.TextView;
 
 import com.bakingapp.R;
 import com.bakingapp.data.model.Step;
-import com.bakingapp.ui.RecipeFragment;
+import com.bakingapp.ui.fragment.RecipeFragment;
 
 import java.util.List;
 

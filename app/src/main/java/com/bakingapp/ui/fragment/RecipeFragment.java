@@ -1,4 +1,4 @@
-package com.bakingapp.ui;
+package com.bakingapp.ui.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import com.bakingapp.R;
 import com.bakingapp.data.model.Recipe;
-import com.bakingapp.ui.adapter.RecipeAdapter;
-import com.bakingapp.ui.adapter.RecipeIngredientAdapter;
 import com.bakingapp.ui.adapter.RecipeStepAdapter;
 
 import butterknife.BindView;
@@ -23,7 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-import static android.support.v7.widget.DividerItemDecoration.HORIZONTAL;
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 
 

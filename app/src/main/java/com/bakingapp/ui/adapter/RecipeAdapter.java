@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bakingapp.R;
 import com.bakingapp.data.model.Recipe;
-import com.bakingapp.ui.RecipeActivity;
+import com.bakingapp.ui.activity.RecipeActivity;
 import com.bakingapp.ui.view.MainView;
 import com.google.gson.Gson;
 
@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.bakingapp.ui.RecipeActivity.KEY_RECIPE;
+import static com.bakingapp.ui.activity.RecipeActivity.KEY_RECIPE;
 
 /**
  * Created by s.urbina.coronado on 5/3/2018.
