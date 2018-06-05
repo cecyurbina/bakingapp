@@ -13,6 +13,8 @@ import com.bakingapp.ui.fragment.RecipeIngredientsFragment;
 import com.bakingapp.ui.fragment.RecipeStepFragment;
 import com.google.gson.Gson;
 
+import java.util.Arrays;
+
 public class RecipeActivity extends AppCompatActivity
         implements RecipeFragment.OnFragmentInteractionListener,
         RecipeStepFragment.OnFragmentInteractionListener,
@@ -24,7 +26,11 @@ public class RecipeActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        recipeJson = getIntent().getStringExtra(KEY_RECIPE);
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_RECIPE)) {
+            recipeJson = savedInstanceState.getString(KEY_RECIPE);
+        } else {
+            recipeJson = getIntent().getStringExtra(KEY_RECIPE);
+        }
         Gson gson = new Gson();
         mRecipe = gson.fromJson(recipeJson, Recipe.class);
 
@@ -40,6 +46,14 @@ public class RecipeActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().add(R.id.fl_step_container, stepFragment).commit();
             }
         }*/
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (recipeJson != null) {
+            outState.putString(KEY_RECIPE, recipeJson);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.bakingapp.R;
 import com.bakingapp.data.model.Recipe;
@@ -32,6 +33,17 @@ public class ContainerDetailRecipeActivity extends AppCompatActivity
             loadFragment(b);
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return (super.onOptionsItemSelected(menuItem));
+        }
     }
 
     private void loadFragment(Bundle b) {
