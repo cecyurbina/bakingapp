@@ -16,11 +16,12 @@ import rx.subscriptions.CompositeSubscription;
  * Created by cecy on 5/13/18.
  */
 
-public class MainPresenterImpl implements MainPresenter{
+public class MainPresenterImpl implements MainPresenter {
     private MainView mView;
     private CompositeSubscription mSubscription;
     private RecipesRepository mRecipesRepository;
-    public MainPresenterImpl(MainView view){
+
+    public MainPresenterImpl(MainView view) {
         this.mView = view;
         this.mSubscription = new CompositeSubscription();
         this.mRecipesRepository = new RecipesRepositoryImpl();
@@ -28,7 +29,7 @@ public class MainPresenterImpl implements MainPresenter{
 
     @Override
     public void onCreate() {
-        
+
     }
 
     @Override

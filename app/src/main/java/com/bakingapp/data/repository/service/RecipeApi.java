@@ -16,8 +16,9 @@ public class RecipeApi {
     private static final String API_URL = Utils.BASE_URL;
     private static final OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     private static TheRecipeApi API_SERVICE;
-    public static TheRecipeApi getApiService(){
-        if (API_SERVICE == null){
+
+    public static TheRecipeApi getApiService() {
+        if (API_SERVICE == null) {
             Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(API_URL)
                     .client(new OkHttpClient())
