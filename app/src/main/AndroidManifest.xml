@@ -20,11 +20,24 @@
         </activity>
         <activity
             android:name=".ui.activity.RecipeActivity"
+            android:configChanges="orientation|screenSize|layoutDirection"
             android:parentActivityName=".ui.activity.MainActivity" />
         <activity
             android:name=".ui.activity.ContainerDetailRecipeActivity"
+            android:configChanges="orientation|screenSize|layoutDirection"
             android:label="@string/title_activity_step"
-            android:parentActivityName=".ui.activity.RecipeActivity"/>
+            android:parentActivityName=".ui.activity.RecipeActivity" />
+        <activity android:name=".ui.activity.FullScreenVideoActivity"
+            android:parentActivityName=".ui.activity.ContainerDetailRecipeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="landscape">
+
+        </activity>
+        <receiver android:name=".ui.activity.FullScreenVideoActivity$MediaReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

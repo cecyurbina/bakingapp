@@ -5,5 +5,6 @@
     <string name="step_number2">%1$s. %2$s</string>
     <string name="title_ingredients">Ingredients</string>
     <string name="title_activity_step">StepActivity</string>
+    <string name="show_video">Video</string>
 
 </resources>
