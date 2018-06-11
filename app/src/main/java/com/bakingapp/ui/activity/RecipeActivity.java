@@ -5,12 +5,16 @@ import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.bakingapp.R;
 import com.bakingapp.data.model.Recipe;
 import com.bakingapp.ui.fragment.RecipeFragment;
 import com.bakingapp.ui.fragment.RecipeIngredientsFragment;
 import com.bakingapp.ui.fragment.RecipeStepFragment;
+import com.bakingapp.utils.Utils;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -46,6 +50,24 @@ public class RecipeActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().add(R.id.fl_step_container, stepFragment).commit();
             }
         }*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_recipe, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.add_to_widget:
+                Utils.saveIngredients(this, mRecipe.getIngredients());
+                return true;
+            default:
+                return (super.onOptionsItemSelected(menuItem));
+        }
     }
 
     @Override
