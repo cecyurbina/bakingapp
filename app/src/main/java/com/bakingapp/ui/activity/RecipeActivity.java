@@ -1,5 +1,7 @@
 package com.bakingapp.ui.activity;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.bakingapp.AppWidget;
 import com.bakingapp.R;
 import com.bakingapp.data.model.Recipe;
 import com.bakingapp.ui.fragment.RecipeFragment;
@@ -64,6 +67,7 @@ public class RecipeActivity extends AppCompatActivity
         switch (menuItem.getItemId()) {
             case R.id.add_to_widget:
                 Utils.saveIngredients(this, mRecipe.getIngredients());
+                updateWidget();
                 return true;
             default:
                 return (super.onOptionsItemSelected(menuItem));
@@ -115,5 +119,11 @@ public class RecipeActivity extends AppCompatActivity
             i.putExtra(ContainerDetailRecipeActivity.KEY_RECIPE, recipeJson);
             startActivity(i);
         }
+    }
+
+    private void updateWidget(){
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, AppWidget.class));
+        AppWidget.
     }
 }
