@@ -3,13 +3,9 @@ package com.bakingapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import com.bakingapp.BuildConfig;
 import com.bakingapp.data.model.Ingredient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +24,13 @@ public class Utils {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
         String json = prefs.getString(KEY_INGREDIENTS, null);
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        return gson.fromJson(json, type);
+        if (json != null) {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            return gson.fromJson(json, type);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public static void saveIngredients(Context context, List<Ingredient> ingredients){

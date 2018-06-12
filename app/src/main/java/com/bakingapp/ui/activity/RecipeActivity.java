@@ -20,8 +20,6 @@ import com.bakingapp.ui.fragment.RecipeStepFragment;
 import com.bakingapp.utils.Utils;
 import com.google.gson.Gson;
 
-import java.util.Arrays;
-
 public class RecipeActivity extends AppCompatActivity
         implements RecipeFragment.OnFragmentInteractionListener,
         RecipeStepFragment.OnFragmentInteractionListener,
@@ -95,9 +93,9 @@ public class RecipeActivity extends AppCompatActivity
     @Override
     public void showIngredients() {
         if (mTwoPane) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                RecipeIngredientsFragment recipeIngredientsFragment = RecipeIngredientsFragment.newInstance(recipeJson);
-                fragmentManager.beginTransaction().replace(R.id.fl_step_container, recipeIngredientsFragment).commit();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            RecipeIngredientsFragment recipeIngredientsFragment = RecipeIngredientsFragment.newInstance(recipeJson);
+            fragmentManager.beginTransaction().replace(R.id.fl_step_container, recipeIngredientsFragment).commit();
         } else {
             Intent i = new Intent(this, ContainerDetailRecipeActivity.class);
             i.putExtra(ContainerDetailRecipeActivity.KEY_FRAGMENT, ContainerDetailRecipeActivity.INGREDIENTS_FRAGMENT);
@@ -121,9 +119,11 @@ public class RecipeActivity extends AppCompatActivity
         }
     }
 
-    private void updateWidget(){
+    private void updateWidget() {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, AppWidget.class));
-        AppWidget.
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.lv_ingredients);
+
+        AppWidget.updateIngredients(this, appWidgetManager, appWidgetIds);
     }
 }
