@@ -1,6 +1,10 @@
 package com.bakingapp.ui.activity;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bakingapp.IdlingResource.SimpleIdlingResource;
 import com.bakingapp.R;
 import com.bakingapp.ui.adapter.RecipeAdapter;
 import com.bakingapp.data.model.Recipe;
@@ -33,13 +38,31 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private RecipeAdapter recipeAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Recipe> recipeList = new ArrayList<>();
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    Bundle mSavedInstanceResource;
+
+    /**
+     * Only called from test, creates and returns a new {@link SimpleIdlingResource}.
+     */
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getIdlingResource();
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new MainPresenterImpl(this);
+        presenter = new MainPresenterImpl(this, mIdlingResource);
         presenter.onCreate();
         recyclerView.setHasFixedSize(true);
         if (getResources().getBoolean(R.bool.isTablet)) {
@@ -50,7 +73,26 @@ public class MainActivity extends AppCompatActivity implements MainView {
         recyclerView.setLayoutManager(layoutManager);
         recipeAdapter = new RecipeAdapter(recipeList, this);
         recyclerView.setAdapter(recipeAdapter);
+        mSavedInstanceResource = savedInstanceState;
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mSavedInstanceResource != null && mSavedInstanceResource.containsKey(KEY_SAVED_RECIPE_RESULTS)) {
+            String json = mSavedInstanceResource.getString(KEY_SAVED_RECIPE_RESULTS);
+            Gson gson = new Gson();
+            Recipe[] arrayRecipe = gson.fromJson(json, Recipe[].class);
+            recipesSuccess(Arrays.asList(arrayRecipe));
+        } else {
+            getRecipes();
+        }
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_SAVED_RECIPE_RESULTS)) {
             String json = savedInstanceState.getString(KEY_SAVED_RECIPE_RESULTS);
             Gson gson = new Gson();
@@ -60,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             getRecipes();
         }
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

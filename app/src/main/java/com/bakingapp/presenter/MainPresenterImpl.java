@@ -1,6 +1,9 @@
 package com.bakingapp.presenter;
 
 
+import android.support.annotation.Nullable;
+
+import com.bakingapp.IdlingResource.SimpleIdlingResource;
 import com.bakingapp.data.model.Recipe;
 import com.bakingapp.data.repository.remote.RecipesRepository;
 import com.bakingapp.data.repository.remote.RecipesRepositoryImpl;
@@ -20,11 +23,13 @@ public class MainPresenterImpl implements MainPresenter {
     private MainView mView;
     private CompositeSubscription mSubscription;
     private RecipesRepository mRecipesRepository;
+    private SimpleIdlingResource mSimpleIdlingResource;
 
-    public MainPresenterImpl(MainView view) {
+    public MainPresenterImpl(MainView view, @Nullable final SimpleIdlingResource idlingResource) {
         this.mView = view;
         this.mSubscription = new CompositeSubscription();
         this.mRecipesRepository = new RecipesRepositoryImpl();
+        this.mSimpleIdlingResource = idlingResource;
     }
 
     @Override
@@ -56,8 +61,14 @@ public class MainPresenterImpl implements MainPresenter {
 
             @Override
             public void onNext(List<Recipe> recipes) {
+                if (mSimpleIdlingResource != null) {
+                    mSimpleIdlingResource.setIdleState(false);
+                }
                 if (mView != null) {
                     mView.recipesSuccess(recipes);
+                    if (mSimpleIdlingResource != null){
+                        mSimpleIdlingResource.setIdleState(true);
+                    }
                 }
             }
         });
