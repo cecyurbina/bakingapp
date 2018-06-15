@@ -178,15 +178,23 @@ public class FullScreenVideoActivity extends AppCompatActivity implements ExoPla
     public void onPositionDiscontinuity() {
 
     }
-
-    /**
-     * Release the player when the activity is destroyed.
-     */
+    
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        releasePlayer();
-        mMediaSession.setActive(false);
+    public void onPause() {
+        super.onPause();
+        if (Util.SDK_INT <= 23) {
+            releasePlayer();
+            mMediaSession.setActive(false);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (Util.SDK_INT > 23) {
+            releasePlayer();
+            mMediaSession.setActive(false);
+        }
     }
 
     /**
