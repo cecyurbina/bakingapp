@@ -1,4 +1,4 @@
-package com.bakingapp.ui;
+package com.bakingapp.widget;
 
 import android.content.Context;
 import android.content.Intent;

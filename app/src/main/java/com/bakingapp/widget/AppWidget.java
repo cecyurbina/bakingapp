@@ -1,4 +1,4 @@
-package com.bakingapp;
+package com.bakingapp.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.bakingapp.R;
 import com.bakingapp.ui.activity.MainActivity;
 
 /**

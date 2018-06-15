@@ -3,7 +3,6 @@ package com.bakingapp.ui.activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.bakingapp.AppWidget;
+import com.bakingapp.widget.AppWidget;
 import com.bakingapp.R;
 import com.bakingapp.data.model.Recipe;
 import com.bakingapp.ui.fragment.RecipeFragment;
@@ -21,9 +20,7 @@ import com.bakingapp.utils.Utils;
 import com.google.gson.Gson;
 
 public class RecipeActivity extends AppCompatActivity
-        implements RecipeFragment.OnFragmentInteractionListener,
-        RecipeStepFragment.OnFragmentInteractionListener,
-        RecipeIngredientsFragment.OnFragmentIngredientsInteractionListener {
+        implements RecipeFragment.OnFragmentInteractionListener {
     public static final String KEY_RECIPE = "KEY_RECIPE";
     private boolean mTwoPane;
     private Recipe mRecipe;
@@ -42,7 +39,7 @@ public class RecipeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
         mTwoPane = getResources().getBoolean(R.bool.isTablet);
-
+        showIngredients();
     }
 
     @Override
@@ -70,11 +67,6 @@ public class RecipeActivity extends AppCompatActivity
             outState.putString(KEY_RECIPE, recipeJson);
         }
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override

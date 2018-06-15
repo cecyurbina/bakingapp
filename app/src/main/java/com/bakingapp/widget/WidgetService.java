@@ -1,9 +1,7 @@
-package com.bakingapp;
+package com.bakingapp.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;
-
-import com.bakingapp.ui.IngredientsList;
 
 public class WidgetService extends RemoteViewsService {
     @Override

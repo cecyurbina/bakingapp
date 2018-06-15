@@ -5,17 +5,12 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
-import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.ActivityInstrumentationTestCase2;
-import android.util.DisplayMetrics;
 
 import com.bakingapp.ui.activity.ContainerDetailRecipeActivity;
-import com.bakingapp.ui.activity.MainActivity;
 import com.bakingapp.ui.activity.RecipeActivity;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;

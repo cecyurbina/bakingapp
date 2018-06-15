@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,20 +49,15 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RecipeStepFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link RecipeStepFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String TAG = RecipeStepFragment.class.getSimpleName();
     private static final String ARG_RECIPE_JSON = "arg_recipe_json";
     private static final String ARG_RECIPE_STEP_POSITION = "arg_recipe_position";
     public static final String KEY_VIDEO_URL = "video_url" ;
 
-    // TODO: Rename and change types of parameters
     private Unbinder unbinder;
     private String mRecipeJson;
     private Recipe mRecipe;
@@ -86,9 +80,6 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     private PlaybackStateCompat.Builder mStateBuilder;
     private boolean isPhone;
 
-
-    private OnFragmentInteractionListener mListener;
-
     public RecipeStepFragment() {
         // Required empty public constructor
     }
@@ -100,7 +91,6 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
      * @param param1 Parameter 1.
      * @return A new instance of fragment RecipeStepFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static RecipeStepFragment newInstance(String param1, int stepPosition) {
         RecipeStepFragment fragment = new RecipeStepFragment();
         Bundle args = new Bundle();
@@ -152,18 +142,11 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentIngredientsInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -211,21 +194,6 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
     @Override
     public void onPositionDiscontinuity() {
 
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     @Override public void onDestroyView() {

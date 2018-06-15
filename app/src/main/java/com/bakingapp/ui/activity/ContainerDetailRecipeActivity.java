@@ -1,6 +1,5 @@
 package com.bakingapp.ui.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +7,10 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.bakingapp.R;
-import com.bakingapp.data.model.Recipe;
 import com.bakingapp.ui.fragment.RecipeIngredientsFragment;
 import com.bakingapp.ui.fragment.RecipeStepFragment;
 
-public class ContainerDetailRecipeActivity extends AppCompatActivity
-        implements RecipeStepFragment.OnFragmentInteractionListener,
-        RecipeIngredientsFragment.OnFragmentIngredientsInteractionListener{
+public class ContainerDetailRecipeActivity extends AppCompatActivity {
     private static final String TAG = ContainerDetailRecipeActivity.class.getName();
     public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
     public static final String KEY_RECIPE = "KEY_RECIPE";
@@ -66,8 +62,4 @@ public class ContainerDetailRecipeActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }
