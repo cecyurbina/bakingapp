@@ -127,8 +127,13 @@ public class RecipeStepFragment extends Fragment implements ExoPlayer.EventListe
         if (!isPhone) {
             mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource(getResources(), R.drawable.ic_play_arrow_black_24dp));
             if (step.getVideoURL() != null && step.getVideoURL().length() > 0) {
-                initializeMediaSession();
-                initializePlayer(Uri.parse(step.getVideoURL()));
+                if (step.getVideoURL() != null && step.getVideoURL().length() > 0) {
+                    initializeMediaSession();
+                    initializePlayer(Uri.parse(step.getVideoURL()));
+                }
+                mPlayerView.setVisibility(View.VISIBLE);
+            } else {
+                mPlayerView.setVisibility(View.GONE);
             }
         } else {
             if (step.getVideoURL() != null && step.getVideoURL().length() > 0) {
