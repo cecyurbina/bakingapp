@@ -43,14 +43,6 @@ public class RecipeActivity extends AppCompatActivity
         setContentView(R.layout.activity_recipe);
         mTwoPane = getResources().getBoolean(R.bool.isTablet);
 
-        /*if (mTwoPane) {
-
-            if (savedInstanceState == null) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                RecipeStepFragment stepFragment = new RecipeStepFragment();
-                fragmentManager.beginTransaction().add(R.id.fl_step_container, stepFragment).commit();
-            }
-        }*/
     }
 
     @Override

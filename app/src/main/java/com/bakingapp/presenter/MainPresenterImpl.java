@@ -30,6 +30,9 @@ public class MainPresenterImpl implements MainPresenter {
         this.mSubscription = new CompositeSubscription();
         this.mRecipesRepository = new RecipesRepositoryImpl();
         this.mSimpleIdlingResource = idlingResource;
+        if (mSimpleIdlingResource != null) {
+            mSimpleIdlingResource.setIdleState(false);
+        }
     }
 
     @Override
@@ -61,9 +64,6 @@ public class MainPresenterImpl implements MainPresenter {
 
             @Override
             public void onNext(List<Recipe> recipes) {
-                if (mSimpleIdlingResource != null) {
-                    mSimpleIdlingResource.setIdleState(false);
-                }
                 if (mView != null) {
                     mView.recipesSuccess(recipes);
                     if (mSimpleIdlingResource != null){
