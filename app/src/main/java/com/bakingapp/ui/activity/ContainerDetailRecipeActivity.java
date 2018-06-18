@@ -1,7 +1,9 @@
 package com.bakingapp.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -31,17 +33,6 @@ public class ContainerDetailRecipeActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return (super.onOptionsItemSelected(menuItem));
-        }
-    }
-
     private void loadFragment(Bundle b) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         int id = b.getInt(KEY_FRAGMENT);
@@ -61,5 +52,15 @@ public class ContainerDetailRecipeActivity extends AppCompatActivity {
                 break;
         }
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()== android.R.id.home) {
+            Intent intent = NavUtils.getParentActivityIntent(this);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            NavUtils.navigateUpTo(this, intent);
+            return true;
+        }
+    return super.onOptionsItemSelected(item);
+}
 
 }
