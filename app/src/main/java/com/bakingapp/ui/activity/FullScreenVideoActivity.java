@@ -38,7 +38,11 @@ import static com.bakingapp.ui.fragment.RecipeStepFragment.KEY_VIDEO_URL;
 
 public class FullScreenVideoActivity extends AppCompatActivity implements ExoPlayer.EventListener {
     private static final String TAG = FullScreenVideoActivity.class.getSimpleName();
+    private static final String KEY_PLAYER_POSITION = "KEY_PLAYER_POSTION";
+    private static final String KEY_PLAYER_PLAY = "KEY_PLAYER_PLAY";
     String url;
+    boolean isPlaying = true;
+    long positionTime = 0;
     private SimpleExoPlayer mExoPlayer;
     @BindView(R.id.player_view)
     SimpleExoPlayerView mPlayerView;
@@ -48,8 +52,10 @@ public class FullScreenVideoActivity extends AppCompatActivity implements ExoPla
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_VIDEO_URL)) {
+        if (savedInstanceState != null) {
             url = savedInstanceState.getString(KEY_VIDEO_URL);
+            isPlaying = savedInstanceState.getBoolean(KEY_PLAYER_PLAY);
+            positionTime = savedInstanceState.getLong(KEY_PLAYER_POSITION);
         } else {
             url = getIntent().getStringExtra(KEY_VIDEO_URL);
         }
@@ -117,7 +123,8 @@ public class FullScreenVideoActivity extends AppCompatActivity implements ExoPla
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     this, userAgent), new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
+            mExoPlayer.setPlayWhenReady(isPlaying);
+            mExoPlayer.seekTo(positionTime);
         }
     }
 
@@ -128,18 +135,6 @@ public class FullScreenVideoActivity extends AppCompatActivity implements ExoPla
         mExoPlayer.stop();
         mExoPlayer.release();
         mExoPlayer = null;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return (super.onOptionsItemSelected(menuItem));
-        }
     }
 
     @Override
@@ -234,5 +229,13 @@ public class FullScreenVideoActivity extends AppCompatActivity implements ExoPla
     @OnClick(R.id.exo_fullscreen)
     public void closeFullScreen() {
         onBackPressed();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString(KEY_VIDEO_URL, url);
+        outState.putLong(KEY_PLAYER_POSITION, mExoPlayer.getCurrentPosition());
+        outState.putBoolean(KEY_PLAYER_PLAY, mExoPlayer.getPlayWhenReady());
+        super.onSaveInstanceState(outState);
     }
 }
